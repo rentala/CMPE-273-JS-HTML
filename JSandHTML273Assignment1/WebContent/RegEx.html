@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>RegEx</title>
+</head>
+<body>
+<input type="text" id="Email" placeholder="Enter Email here">
+<input type="button" id="btn" onclick="val.Validate()" value="Validate">
+<div>
+<h4 id="error" style="display:none">Invalid Email. Enter valid email address.</h4>
+</div>
+</body>
+<script>
+var val = {};
+val.Regex = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+(function(){
+	val.Validate = function()
+	{
+		var emailval = document.getElementById("Email").value;
+		if(!val.Regex.test(emailval))
+		{
+			document.getElementById("error").style.display = "block";
+		}
+		else
+		{
+			document.getElementById("error").style.display = "none";
+		}
+	}
+})();
+</script>
+</html>

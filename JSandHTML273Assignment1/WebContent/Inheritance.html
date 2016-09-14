@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Inheritance</title>
+</head>
+<body>
+<h1>Product : Mobile</h1>
+<h2 id="p1"></h2>
+<h2 id="t1"></h2>
+<h1>Product : Laptop</h1>
+<h2 id="p2"></h2>
+<h2 id="t2"></h2>
+
+</body>
+<script type="text/javascript">
+/**
+ * For a product class 
+   var product = function(product){
+		this.ProductId = product.ProductId;
+		this.Price = product.Price;
+		this.Discount = product.Discount;
+		this.TotalPrice = function(){ return this.Price*(1- (this.Discount)/100)}
+	}
+   reuse it to create a Mobile and Laptop object. 
+   Display the Total Price as the same as Price if 
+   the Laptop has a touch screen.
+ * 
+ */
+
+
+(function(){
+	
+	var product = function(product){
+		this.ProductId = product.ProductId;
+		this.Price = product.Price;
+		this.Discount = product.Discount;
+		this.TotalPrice = function(){ return this.Price*(1- (this.Discount)/100)}
+	}
+	var MobilePhone = function(prod){
+		this.CameraResolution = prod.Resolution;
+		product.call(this, prod);
+	};
+	MobilePhone.prototype = Object.create(product.prototype);
+	MobilePhone.prototype.hasCamera = function(){
+		return this.CameraResolution>0 ; 
+	}
+	MobilePhone.prototype.constructor = MobilePhone;
+	
+	var MotoG = new MobilePhone({Resolution: 10, ProductId: 1234, 
+		Price: 200, Discount: 20})
+	
+	document.getElementById("p1").innerText = JSON.stringify(MotoG);
+	document.getElementById("t1").innerText = "Total Price: " +	JSON.stringify(MotoG.TotalPrice());
+	
+	var Laptop = function(prod){
+		this.ScreenSize = prod.ScreenSize;
+		this.hasTouchScreen = prod.hasTouchScreen;
+		product.call(this, prod);
+		this.TotalPrice = function(){
+			if(!this.hasTouchScreen)
+				return product.prototype.TotalPrice.call(this);
+			else
+				return this.Price;
+		}
+	}
+	Laptop.prototype = Object.create(product.prototype);
+	Laptop.prototype.constructor = Laptop;
+	var AcerR13 = new Laptop({ScreenSize: 15, ProductId: 1234, 
+		Price: 1000, Discount: 20, hasTouchScreen : true})
+	document.getElementById("p2").innerText = JSON.stringify(AcerR13);
+	document.getElementById("t2").innerText = "Total Price: " + JSON.stringify(AcerR13.TotalPrice());
+	
+})();
+</script>
+
+</html>

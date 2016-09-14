@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Object</title>
+</head>
+<body>
+<p>Amazon.com needs data binding and simple calculations done 
+on the front end for their shopping cart. Develop a JS object that
+ fits such a scenario and calculate the total shopping cart price.</p>
+</body>
+<script>
+
+(function(){
+	var shoppingCart = {
+			get cartID() { return 123; },
+			Products: [{ProductName: "MotoG", Price: 200},
+					   {ProductName: "SkullCandy", Price: 30}],
+			get TotalPrice(){
+				var totalPrice = 0;
+				for(var i=0; i < this.Products.length; i++)
+					{
+					totalPrice += this.Products[i].Price;
+					}
+				return totalPrice;
+			}
+	}
+	alert("Total Price: "+ shoppingCart.TotalPrice);
+})()
+
+</script>
+</html>

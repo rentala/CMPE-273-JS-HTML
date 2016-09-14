@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Variable</title>
+</head>
+<body>
+<div>
+<input type="text" id="firstName" placeholder="Enter First Name"/>
+<input type="text" id="lastName" placeholder="Enter Last Name"/>
+<input type="button" onclick="getFullName()" value="Generate Full Name" />
+</div>
+<div>
+<h3 id="fullName"></h3>
+</div>
+</body>
+<script>
+/*
+ * Write a program that displays the user entered first name 
+ * and last name as full name on the web page.
+ */
+function getFullName()
+{
+	var firstname = document.getElementById("firstName").value;
+	var lastname = document.getElementById("lastName").value
+	var fullName = firstname + " " + lastname;
+	document.getElementById("fullName").innerText = "Your Full Name is " + fullName;
+}
+</script>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Errors</title>
+</head>
+<body>
+<p id="ptag"></p>
+</body>
+<script>
+function executeCode(fn)
+{
+	try{
+		fn();
+	}catch(e)
+	{
+		logError(e);
+	}
+}
+function logError(e) {
+	
+	var stack =e.hasOwnProperty("error") ? e.error.stack: e.stack;
+    var message = e.message;
+    if (stack) {
+        message += '\n' + stack;
+    }
+    sendMessage(message, false)
+}
+function sendMessage(message, logInConsole)
+{
+	if(logInConsole){
+		document.getElementById("ptag").innerHTML = message;
+		console.log(message)
+	}
+	else
+	{
+		//code to send message to server
+		var req = new XMLHttpRequest();
+		req.open('POST', 'http://SomeAPItoLog', true);
+		req.send(message);	
+		req.onerror = function(s){
+			sendMessage(message, true);
+		};
+	}
+	
+}
+
+executeCode(function(){
+	document.getElementById("asd").value;
+});
+
+</script>
+
+</html>

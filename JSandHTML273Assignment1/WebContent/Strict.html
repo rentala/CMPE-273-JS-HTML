@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Strict</title>
+</head>
+<body>
+<div><h1>Amzaon.com</h1></div>
+<div>
+	<div><h4>Nutella</h4></div>
+	<div>Price: 8$</div>
+	<input type="button" value="Add to Cart" onclick="cart.addtocart(this, {id:123, price:8, name:'Nutella'})" />
+</div>
+<div>
+	<div><h4>Milk</h4></div>
+	<div>Price: 4$</div>
+	<input type="button" value="Add to Cart" onclick="cart.addtocart(this, {id: 456,price:4, name:'Milk'} )" />
+</div>
+<div>
+	<div><h4>Cereal</h4></div>
+	<div>Price: 5$</div>
+	<input type="button" value="Add to Cart" onclick="cart.addtocart(this, { id: 789,price: 5, name: 'Cereal'} )" />
+</div>
+<div>
+<h3>Shopping Cart</h3>
+<ul id="list">
+
+</ul>
+<div>Sub Total : <span id="subTotal"></span></div>
+<div>Shipping: <span id="shipping"></span></div>
+<div>Total : <span id="total"></span></div>
+</div>
+</body>
+<script>
+"use strict";
+var cart = {
+		products: [],
+		totalPrice : function(){
+			var subtotal = this.subTotal();
+			return subtotal + this.shipping(subtotal);
+		},
+		shipping : function(price){ 
+			if(price < 10){
+				return 3;
+			}
+			return 0;
+		},
+		subTotal: function()
+		{
+			var price = 0;
+			for(var i=0; i< this.products.length; i++)
+				{
+				price += this.products[i].price;
+				}
+			return price;
+		},
+		addtocart: function (e, obj){
+			cart.products.push(obj);
+			this.updateCart();
+			e.value = "Added !";
+			e.disabled = true;
+		},
+		updateCart: function ()
+		{
+			var ul = document.getElementById("list");
+			ul.innerHTML = "";
+			
+			for(var i = 0; i < this.products.length; i++)
+			{
+				var li = document.createElement("li");
+				li.appendChild(document.createTextNode(this.products[i].name + " - " + this.products[i].price +"$"));
+				ul.appendChild(li);
+			}
+			var subTotal = this.subTotal();
+			document.getElementById("subTotal").innerHTML = subTotal;
+			var total = this.totalPrice();
+			var shipping = total - subTotal;
+			document.getElementById("shipping").innerHTML = shipping === 0 ? "Free Shipping !": shipping ;
+			document.getElementById("total").innerHTML = total;
+		}
+		
+}
+
+
+
+</script>
+</html>

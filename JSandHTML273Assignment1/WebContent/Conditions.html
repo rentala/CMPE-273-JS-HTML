@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Conditions</title>
+</head>
+<body>
+<h3>Guess the secret number !</h3>
+<div>Click on start to start the game !</div>
+<input type="button" value="Start" onclick="startGame()"/>
+<p>You have 1 minute to guess the secret number picked by the computer.<p>
+<p>For every guess the user makes, the computer responds with either less than or greater than. 
+If the number matches then you win</p>
+<div id="game" >
+	<div >Timer : <span id ="timer">1:00</span></div>
+	<div><input id="EnteredNo" type="text" placeholder="Enter secret number here !" /></div>
+	<div><input id="try" type="button" onclick="check()" value ="Try !" /><span id="hint"></span></div>
+</div>
+
+</body>
+<script type="text/javascript">
+
+function getRandomNumb() {
+	  return Math.floor(Math.random() * (100 - 0)) + 0;
+}
+var secretNo = getRandomNumb();
+var time = 59;
+var setTimeID = "";
+var endofgame = false;
+var changeTime = function(){
+	if(endofgame){
+		clearTimeout(setTimeID);
+	}
+	document.getElementById("timer").innerHTML = time;
+	time = time - 1;
+	if(time > -1 )
+	{
+		if(!endofgame)
+			start();
+	}
+	else
+	{
+		stop();	
+	}
+}
+function check()
+{
+	var entered = document.getElementById("EnteredNo").value;
+	var text = "";
+	if(entered > secretNo)
+		text = "A little lower";
+	if(entered < secretNo)
+		text = "A little higher";
+	if(entered == secretNo)
+		wonTheGame();
+	document.getElementById("hint").innerHTML = text;
+}
+function wonTheGame()
+{
+	stop(true)
+}
+function startGame()
+{
+	time = 59;
+	document.getElementById("try").value = "Try"
+	document.getElementById("try").disabled = false;
+	start();
+}
+function start()
+{
+	setTimeID = setTimeout(changeTime, 1000);
+}
+function stop(val)
+{
+	if(val === true)
+		endofgame = val;
+	document.getElementById("try").value = val ? "You won !" : "Time is up !" ;
+	document.getElementById("try").disabled = true;
+}
+</script>
+</html>

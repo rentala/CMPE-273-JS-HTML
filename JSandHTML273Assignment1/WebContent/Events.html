@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Events</title>
+</head>
+<body>
+<h1>Welcome to our Webpage</h1>
+
+<h2>Stay Active !</h2>
+
+<h3>Else</h3>
+
+<h2>We will warn you every time you aren't</h2>
+
+<h4>Remember to click, keypress or move your mouse atleast once every 10 seconds </h4>
+</body>
+<script>
+/*
+ * On our webpage we fire an alert to remind the user of inactivity on the browser.
+ Inactivity is defined as when there is not mouse movement or mouse click 
+ or keyboard press on the webpage for more than 10 seconds. 
+ Program such a requirement.
+ */
+(function(){
+
+	document.body.addEventListener("mousemove", setInactivity, false);
+	document.body.addEventListener("click", setInactivity, false);
+	document.body.addEventListener("keydown", setInactivity, false);
+	function setInactivity(o)
+	{
+		clearTimeout(timer);
+		timer = setTimeout(Remind, 10000);
+	}
+	var timer = setTimeout(Remind, 10000);
+	function Remind()
+	{
+		alert("Hey, you've been inactive for a while")
+	}
+})();
+
+</script>
+</html>

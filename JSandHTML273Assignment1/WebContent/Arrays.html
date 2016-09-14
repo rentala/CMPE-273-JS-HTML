@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Arrays</title>
+</head>
+<body>
+<div>
+<input type="text" id="listTest" placeholder="Enter words here">
+<input type="button" onclick="doc.addToList(this)" value="add">
+<input type="text" id="searchText" placeholder="Search List ">
+<input type="button" onclick="doc.search(this)" value="search">
+</div>
+<div >
+<ul id="list">
+</ul>
+</div>
+</body>
+<script>
+var doc = {};
+(function(){
+	doc.list = [];
+	var ass = 0;
+	doc.addToList = function (o)
+	{
+		doc.list.push(document.getElementById("listTest").value); 
+		var ul = document.getElementById("list");
+		var li = document.createElement("li");
+		li.appendChild(document.createTextNode(document.getElementById("listTest").value));
+		ul.appendChild(li);
+	}
+	doc.search = function(o)
+	{
+		var searchVal = document.getElementById("searchText").value ;
+		var NoOfInstances = 0;
+		if(doc.list.length > 0)
+		{
+			for(var i =0; i <doc.list.length ; i++)
+			{
+				if(doc.list[i] === searchVal)
+				{
+					NoOfInstances +=1;
+				}
+			}
+			alert(NoOfInstances + " Occurances")
+		}
+		else{
+			alert("No values entered in list")	
+		}
+		
+	}
+})();
+</script>
+</html>

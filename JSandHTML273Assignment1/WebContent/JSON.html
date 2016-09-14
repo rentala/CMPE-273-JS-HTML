@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>JSON</title>
+</head>
+<body>
+<h3>Product Management System</h3>
+<div><input type="text" id="productName" placeholder="Enter Product Name" /></div>
+<div><input type="text" id="productPrice" placeholder="Enter Product Price" /></div>
+<div><input type="button" onclick="addProduct()" value="Add Product" /></div>
+<div><input type="button" onclick="showProducts()" value="Show Products" /></div>
+<div id="jsonView">
+<ul id="list">
+
+</ul>
+</div>
+</body>
+<script>
+var cart = {
+		cardId : 2134,
+		products: [{
+			name: "MotoG",
+			price: 200
+		},{
+			name: "Dell Laptop",
+			price: 700
+		}]
+}
+function showProducts()
+{
+	var products = getProductsAPI();
+	var ul = document.getElementById("list");
+	ul.innerHTML = "";
+	
+	for(var i = 0; i < products.length; i++)
+	{
+		var li = document.createElement("li");
+		li.appendChild(document.createTextNode(products[i].name + " - " + products[i].price +"$"));
+		ul.appendChild(li);
+	}
+}
+function addProduct()
+{
+	var product = {
+			name: document.getElementById("productName").value,
+			price: Number(document.getElementById("productPrice").value)
+	}
+	if(addProductAPI(product))
+		cart.products.push(product);
+}
+function addProductAPI(obj)
+{
+	var json = JSON.stringify(obj);
+	//code to call API
+	return true;
+}
+function getProductsAPI()
+{
+	//code to call API
+	var json = JSON.stringify(cart.products);
+	
+	return JSON.parse(json);
+}
+</script>
+</html>
