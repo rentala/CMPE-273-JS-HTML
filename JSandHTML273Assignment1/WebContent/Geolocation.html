@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<p><button onclick="findMe()">Where Am I ?</button></p>
+<div id="map"></div>
+</body>
+<script>
+
+var findMe = function () {
+	  var op = document.getElementById("map");
+
+	  if (!navigator.geolocation){
+		  op.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+	  }
+
+	  function success(position) {
+	    var lat  = position.coords.latitude;
+	    var lng = position.coords.longitude;
+
+	    op.innerHTML = '<div><h2>Your Location is . . </h2></div><p>Latitude is ' + lat + ' <br>Longitude is ' + lng + '</p>';
+
+	    var img = new Image();
+	    img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lng + "&zoom=13&size=300x300&sensor=false";
+	    op.appendChild(img);
+	  };
+
+	  function error(e) {
+	    op.innerHTML = "Unable to retrieve your location";
+	  };
+
+	  op.innerHTML = "<p>Detecting</p>";
+	  navigator.geolocation.getCurrentPosition(success, error);
+};
+</script>
+</html>

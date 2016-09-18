@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Media</title>
+</head>
+<body>
+
+<div style="text-align:center">
+	<div><h3>Video Below:</h3></div>
+  <button onclick="toggle(this)">Play</button>
+  <button onclick="makeLarge()">Big</button>
+  <button onclick="makeSmall()">Small</button>
+  <br><br>
+  <video id="video1" width="420">
+	<source src=http://techslides.com/demos/sample-videos/small.mp4 type=video/mp4>
+	Your browser does not support the video element.
+  </video>
+</div>
+
+<div style="text-align:center" >
+	<div>Audio Below<div>
+<audio controls>
+  <source src="http://stitched-files.bwh9c8255b4.netdna-cdn.com/stitch1/arseblog/arsecastextraepisode139-12.09.2016/hASWFjmTDQh0AmP4PsFP0w.mp3?ci=46f756fe-373b-420c-8ee3-2bbaf873d1ad&amp;st=lWZS9r1xFmJeHaduS21A8w&amp;e=1474171364" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+</div>
+
+</body>
+<script>
+var vid = document.getElementById("video1");
+
+function toggle(e) {
+    if (vid.paused)
+    {
+    	vid.play();
+    	e.innerText	= "Pause";
+    }
+    else
+    {
+    	e.innerText	= "Play";
+    	vid.pause();
+    }
+
+}
+
+function makeLarge() {
+    vid.width = 560;
+}
+
+function makeSmall() {
+    vid.width = 320;
+}
+</script>
+
+</html>
+
